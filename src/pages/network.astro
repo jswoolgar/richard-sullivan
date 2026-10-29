@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import PageHeader from '../components/PageHeader.astro';
 import CallToAction from '../components/CallToAction.astro';
 import { partners } from '../data/site';
+import { slugify } from '../data/menu';
 ---
 
 <Base title="Trusted Network" description="Licensed trades Richard works with directly, including David Lawrence for HVAC.">
@@ -16,7 +17,7 @@ import { partners } from '../data/site';
     <div class="wrap">
       <div class="partners partners-lg">
         {partners.map((p) => (
-          <div class="partner">
+          <div class="partner" id={slugify(p.name)}>
             <span class="partner-trade">{p.trade}</span>
             <h3>{p.name}</h3>
             <span>{p.detail}</span>
@@ -26,7 +27,7 @@ import { partners } from '../data/site';
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="contractor-management">
     <div class="wrap split">
       <div>
         <h2>Contractor management</h2>

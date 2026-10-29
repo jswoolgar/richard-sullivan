@@ -28,7 +28,7 @@ const historicProjects = projects.filter((p) => p.historic);
     <img src={unsplash(stock.historicHouse, 1600, 640)} alt="A restored brick house with a white wrap-around porch" class="banner-img" width="1600" height="640" />
   </div>
 
-  <section class="section">
+  <section class="section" id="approach">
     <div class="wrap">
       <h2>How I work on older houses</h2>
       <div class="principles">
@@ -42,7 +42,7 @@ const historicProjects = projects.filter((p) => p.historic);
     </div>
   </section>
 
-  <section class="section feature">
+  <section class="section feature" id="typical-work">
     <div class="wrap feature-inner">
       <div>
         <h2>Typical old-house work</h2>
@@ -59,7 +59,7 @@ const historicProjects = projects.filter((p) => p.historic);
   </section>
 
   {historicProjects.length > 0 && (
-    <section class="section">
+    <section class="section" id="historic-projects">
       <div class="wrap">
         <h2>Historic projects</h2>
         <div class="projects">

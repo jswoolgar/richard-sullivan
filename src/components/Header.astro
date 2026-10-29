@@ -1,5 +1,6 @@
 ---
-import { site, nav, serviceGroups } from '../data/site';
+import { site } from '../data/site';
+import { menu } from '../data/menu';
 
 const path = Astro.url.pathname;
 const isActive = (href: string) => path === href || path.startsWith(href);
@@ -10,20 +11,19 @@ const isActive = (href: string) => path === href || path.startsWith(href);
     <a href="/" class="brand">{site.name}<span class="brand-sub">Handyman</span></a>
     <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
     <nav id="site-nav">
-      {nav.map((item) =>
-        item.href === '/services/' ? (
+      {menu.map((item, i) =>
+        item.items?.length ? (
           <div class="has-dropdown">
-            <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined} aria-haspopup="true">
-              {item.label} <span class="caret" aria-hidden="true">▾</span>
-            </a>
-            <div class="dropdown">
-              {serviceGroups.map((group) => (
-                <a href={`/services/#${group.id}`}>
-                  <strong>{group.title}</strong>
-                  <span>{group.items.map((i) => i.name).join(', ')}</span>
+            <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
+            <button class="sub-toggle" aria-expanded="false" aria-label={`Show ${item.label} links`}>▾</button>
+            <div class:list={['dropdown', { 'dropdown-right': i >= menu.length - 2 }]}>
+              {item.items.map((child) => (
+                <a href={child.href}>
+                  <strong>{child.label}</strong>
+                  {child.desc && <span>{child.desc}</span>}
                 </a>
               ))}
-              <a href="/services/" class="dropdown-all">All services →</a>
+              {item.all && <a href={item.href} class="dropdown-all">{item.all} →</a>}
             </div>
           </div>
         ) : (
@@ -43,7 +43,17 @@ const isActive = (href: string) => path === href || path.startsWith(href);
     toggle.setAttribute('aria-expanded', String(!open));
     navEl?.classList.toggle('open', !open);
   });
-  // Close the mobile menu after picking a link on the same page.
+
+  // Expand or collapse a section's links in the mobile menu.
+  navEl?.querySelectorAll<HTMLButtonElement>('.sub-toggle').forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
+      btn.parentElement?.classList.toggle('expanded', !expanded);
+    })
+  );
+
+  // Close the menus after picking a link on the same page.
   navEl?.querySelectorAll('a').forEach((a) =>
     a.addEventListener('click', () => {
       a.blur();

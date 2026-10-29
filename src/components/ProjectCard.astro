@@ -1,5 +1,6 @@
 ---
 import type { Project } from '../data/projects';
+import { slugify } from '../data/menu';
 
 interface Props {
   project: Project;
@@ -8,7 +9,7 @@ interface Props {
 const { project } = Astro.props;
 ---
 
-<article class="project">
+<article class="project" id={slugify(project.title)}>
   {project.image ? (
     <img src={project.image} alt={project.title} loading="lazy" width="900" height="600" />
   ) : (
