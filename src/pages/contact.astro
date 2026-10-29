@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { site, tel } from '../data/site';
+---
+
+<Base title="Contact" description={`Get in touch with ${site.name}. Call ${site.phone} or send a message.`}>
+  <PageHeader eyebrow="Contact" title="Tell me about the job" lede="Send a quick note and I'll get back to you to set up a time to take a look." />
+
+  <section class="section">
+    <div class="wrap contact-inner">
+      <div>
+        <dl class="contact-details">
+          <dt>Phone</dt><dd><a href={`tel:${tel}`}>{site.phone}</a></dd>
+          <dt>Email</dt><dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
+          <dt>Area</dt><dd>{site.serviceArea}</dd>
+        </dl>
+        <p class="section-lede">Photos help. If you have some, mention it and I'll reply so you can send them over.</p>
+      </div>
+      <form name="contact" method="POST" data-netlify="true" netlify-honeypot="company" action="/thanks/" class="form">
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="hidden"><label>Leave blank <input name="company" /></label></p>
+        <label>Name <input name="name" required autocomplete="name" /></label>
+        <label>Email or phone <input name="contact" required /></label>
+        <label>Address or neighborhood <input name="location" autocomplete="street-address" /></label>
+        <label>What needs doing?
+          <textarea name="message" rows="5" required></textarea>
+        </label>
+        <button type="submit" class="btn">Send</button>
+      </form>
+    </div>
+  </section>
+</Base>

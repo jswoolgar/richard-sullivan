@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CallToAction from '../components/CallToAction.astro';
+import { serviceGroups } from '../data/site';
+---
+
+<Base title="Services" description="Household repairs, painting, yard work, masonry, fencing, IT help and contractor management.">
+  <PageHeader
+    eyebrow="Services"
+    title="What I do"
+    lede="No job too small. If it needs a licensed specialist, I'll bring the right one in and manage it for you."
+  />
+
+  {serviceGroups.map((group) => (
+    <section class="section" id={group.id}>
+      <div class="wrap split">
+        <div>
+          <h2>{group.title}</h2>
+          <p class="section-lede">{group.blurb}</p>
+          {group.image && <img src={group.image} alt="" class="service-img" loading="lazy" width="900" height="600" />}
+        </div>
+        <ul class="service-list">
+          {group.items.map((item) => (
+            <li>
+              <strong>{item.name}</strong>
+              <span>{item.detail}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  ))}
+
+  <section class="section" id="licensed-trades">
+    <div class="wrap split">
+      <div>
+        <h2>Need a licensed trade?</h2>
+        <p class="section-lede">HVAC and other specialist work comes through people I trust.</p>
+      </div>
+      <p><a href="/network/" class="more">See the trusted network →</a></p>
+    </div>
+  </section>
+
+  <CallToAction />
+</Base>

@@ -1,0 +1,22 @@
+---
+import { site, tel } from '../data/site';
+
+interface Props {
+  title?: string;
+}
+
+const { title = 'Have a job in mind?' } = Astro.props;
+---
+
+<section class="section cta">
+  <div class="wrap cta-inner">
+    <div>
+      <h2>{title}</h2>
+      <p>Tell me what needs doing and I'll come take a look.</p>
+    </div>
+    <div class="hero-actions">
+      <a href="/contact/" class="btn btn-light">Request a visit</a>
+      <a href={`tel:${tel}`} class="btn btn-ghost-light">Call {site.phone}</a>
+    </div>
+  </div>
+</section>

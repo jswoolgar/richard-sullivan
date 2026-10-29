@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CallToAction from '../components/CallToAction.astro';
+import { site } from '../data/site';
+---
+
+<Base title="About" description={`About ${site.name}, handyman and historic property specialist.`}>
+  <PageHeader eyebrow="About" title={`Hi, I'm Richard.`} />
+
+  <section class="section about">
+    <div class="wrap about-inner">
+      <figure class="hero-photo">
+        <img src={site.photo} alt={site.name} width="800" height="1000" />
+      </figure>
+      <div class="prose">
+        <!-- TODO: Replace with Richard's own story: background, how long he's been doing this, why old houses. -->
+        <p>
+          I'm a handyman who likes the jobs other people put off: the sticky door, the crumbling step,
+          the fence that's been leaning for three years. I also have a soft spot for older houses and the
+          craftsmanship that went into them.
+        </p>
+        <p>
+          My clients call me for a wide mix of things, from hanging art and assembling furniture to
+          repointing brick, trimming trees and getting the Wi-Fi working. When a job needs a licensed trade,
+          I bring in people I trust and look after the whole thing.
+        </p>
+        <h2>How I work</h2>
+        <ul class="tick-list tick-dark">
+          <li>I show up when I say I will</li>
+          <li>I tell you honestly what a job needs, and what it doesn't</li>
+          <li>I treat your home with care and clean up after myself</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <CallToAction />
+</Base>

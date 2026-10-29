@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import CallToAction from '../components/CallToAction.astro';
+import { projects } from '../data/projects';
+import { stock, unsplash } from '../data/stock';
+
+// TODO: Have Richard review this copy for accuracy and add his own experience.
+const principles = [
+  { title: 'Repair before replace', body: 'Original windows, trim, doors and hardware can usually be saved. Old-growth wood often outlasts anything you can buy today.' },
+  { title: 'Match the materials', body: 'Soft historic brick needs lime-based mortar, not modern cement. Plaster gets patched with plaster. The wrong material can do real damage over time.' },
+  { title: 'Respect the character', body: 'Paint colors, profiles and details that suit the period of the house, so repairs disappear into the original.' },
+  { title: 'Know the limits', body: 'Some jobs call for a preservation specialist. I know when to bring one in, and I manage them for you.' },
+];
+
+const historicProjects = projects.filter((p) => p.historic);
+---
+
+<Base title="Historic Homes" description="Careful repair and upkeep for older and historic houses: masonry, woodwork, painting and trusted specialists.">
+  <PageHeader
+    eyebrow="Specialty"
+    title="Historic property specialist"
+    lede="Older homes have their own rules. Original plaster, old-growth trim, lime mortar and wavy glass don't respond well to modern shortcuts."
+  />
+
+  <div class="wrap">
+    <img src={unsplash(stock.historicHouse, 1600, 640)} alt="A restored brick house with a white wrap-around porch" class="banner-img" width="1600" height="640" />
+  </div>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>How I work on older houses</h2>
+      <div class="principles">
+        {principles.map((p) => (
+          <div class="principle">
+            <h3>{p.title}</h3>
+            <p>{p.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section feature">
+    <div class="wrap feature-inner">
+      <div>
+        <h2>Typical old-house work</h2>
+      </div>
+      <ul class="tick-list">
+        <li>Repointing brick and stone with matched mortar</li>
+        <li>Porch, trim and siding repair</li>
+        <li>Careful scraping, priming and repainting</li>
+        <li>Plaster crack and patch repair</li>
+        <li>Sticky doors and windows, sash cords and hardware</li>
+        <li>Finding and managing preservation-minded trades</li>
+      </ul>
+    </div>
+  </section>
+
+  {historicProjects.length > 0 && (
+    <section class="section">
+      <div class="wrap">
+        <h2>Historic projects</h2>
+        <div class="projects">
+          {historicProjects.map((p) => <ProjectCard project={p} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CallToAction title="Own an older home?" />
+</Base>

@@ -1,0 +1,96 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import CallToAction from '../components/CallToAction.astro';
+import { site, tel, serviceGroups, partners } from '../data/site';
+import { projects } from '../data/projects';
+---
+
+<Base>
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow">{site.tagline}</p>
+        <h1>The handyman you call first.</h1>
+        <p class="lede">{site.intro}</p>
+        <div class="hero-actions">
+          <a href="/contact/" class="btn">Request a visit</a>
+          <a href={`tel:${tel}`} class="btn btn-ghost">Call {site.phone}</a>
+        </div>
+      </div>
+      <figure class="hero-photo">
+        <img src={site.photo} alt={site.name} width="800" height="1000" />
+      </figure>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What I do</h2>
+        <a href="/services/" class="more">All services →</a>
+      </div>
+      <div class="groups">
+        {serviceGroups.map((group) => (
+          <a href={`/services/#${group.id}`} class="group group-link">
+            {group.image && <img src={group.image} alt="" class="group-img" loading="lazy" width="900" height="600" />}
+            <h3>{group.title}</h3>
+            <p class="group-blurb">{group.blurb}</p>
+            <p class="group-list">{group.items.map((i) => i.name).join(' · ')}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section feature">
+    <div class="wrap feature-inner">
+      <div>
+        <p class="eyebrow">Specialty</p>
+        <h2>Historic property specialist</h2>
+      </div>
+      <div>
+        <p>
+          Older homes need a lighter touch. I repair what can be saved, match materials where it matters,
+          and know when to bring in someone who understands period construction.
+        </p>
+        <p><a href="/historic-homes/" class="link-light">How I work on older homes →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Recent projects</h2>
+        <a href="/projects/" class="more">See more →</a>
+      </div>
+      <div class="projects">
+        {projects.slice(0, 3).map((p) => <ProjectCard project={p} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <h2>One call, the right trades</h2>
+        <p class="section-lede">
+          When a job needs a licensed specialist, I bring in people I know and vouch for, and manage the
+          work on your behalf.
+        </p>
+        <a href="/network/" class="more">Meet the network →</a>
+      </div>
+      <div class="partners">
+        {partners.map((p) => (
+          <div class="partner">
+            <span class="partner-trade">{p.trade}</span>
+            <strong>{p.name}</strong>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CallToAction />
+</Base>

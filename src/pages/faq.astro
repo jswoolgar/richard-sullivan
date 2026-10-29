@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CallToAction from '../components/CallToAction.astro';
+import { faqs } from '../data/faq';
+---
+
+<Base title="FAQ" description="Common questions about pricing, scheduling, service area and the kinds of jobs Richard takes on.">
+  <PageHeader eyebrow="FAQ" title="Common questions" />
+
+  <section class="section">
+    <div class="wrap faq">
+      {faqs.map((f) => (
+        <details>
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <CallToAction title="Still have a question?" />
+</Base>

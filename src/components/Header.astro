@@ -1,0 +1,54 @@
+---
+import { site, nav, serviceGroups } from '../data/site';
+
+const path = Astro.url.pathname;
+const isActive = (href: string) => path === href || path.startsWith(href);
+---
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a href="/" class="brand">{site.name}<span class="brand-sub">Handyman</span></a>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav">
+      {nav.map((item) =>
+        item.href === '/services/' ? (
+          <div class="has-dropdown">
+            <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined} aria-haspopup="true">
+              {item.label} <span class="caret" aria-hidden="true">▾</span>
+            </a>
+            <div class="dropdown">
+              {serviceGroups.map((group) => (
+                <a href={`/services/#${group.id}`}>
+                  <strong>{group.title}</strong>
+                  <span>{group.items.map((i) => i.name).join(', ')}</span>
+                </a>
+              ))}
+              <a href="/services/" class="dropdown-all">All services →</a>
+            </div>
+          </div>
+        ) : (
+          <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
+        )
+      )}
+      <a href="/contact/" class="btn btn-small">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const navEl = document.getElementById('site-nav');
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    navEl?.classList.toggle('open', !open);
+  });
+  // Close the mobile menu after picking a link on the same page.
+  navEl?.querySelectorAll('a').forEach((a) =>
+    a.addEventListener('click', () => {
+      a.blur();
+      navEl.classList.remove('open');
+      toggle?.setAttribute('aria-expanded', 'false');
+    })
+  );
+</script>

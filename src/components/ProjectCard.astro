@@ -1,0 +1,22 @@
+---
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+---
+
+<article class="project">
+  {project.image ? (
+    <img src={project.image} alt={project.title} loading="lazy" width="900" height="600" />
+  ) : (
+    <div class="project-placeholder" aria-hidden="true">{project.category}</div>
+  )}
+  <div class="project-body">
+    <span class="tag">{project.category}</span>
+    <h3>{project.title}</h3>
+    <p>{project.summary}</p>
+  </div>
+</article>
